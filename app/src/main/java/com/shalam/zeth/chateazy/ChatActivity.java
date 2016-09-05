@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String chatMessage=dataSnapshot.getValue(String.class);
-                message.setText(chatMessage);
+                message.setText(chatMessage); 
             }
 
             @Override
