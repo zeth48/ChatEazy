@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        progressDialog=new ProgressDialog(this);
         email=(EditText)findViewById(R.id.email);
         password=(EditText) findViewById(R.id.password);
         login=(Button)findViewById(R.id.login);
@@ -57,13 +57,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             Toast.makeText(this, "Enter Password", Toast.LENGTH_SHORT).show();
         }
+        progressDialog.setMessage("Logging In...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
 
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if(task.isSuccessful()){
+                    progressDialog.dismiss();
                     finish();
                     startActivity(new Intent(MainActivity.this, ChatActivity.class));
                 }
